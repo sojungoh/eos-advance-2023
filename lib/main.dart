@@ -1,10 +1,56 @@
+import 'package:eos_chatting/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:eos_chatting/screens/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "first App",
+      theme: ThemeData(
+        primarySwatch: Colors.lightGreen,
+        fontFamily: 'Teko'
+      ),
+      home: const HomeScreen(),
+    );
+  }
+}
+
+class MyHomePage extends StatelessWidget {
+  const MyHomePage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('EOS 시계 앱'),
+        leading: Icon(Icons.access_time),
+      ),
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextButton(
+            child: Text('hihi'),
+            onPressed: (){},
+          ),
+          ElevatedButton(onPressed: (){}, child: Text('hihihi')),
+          IconButton(onPressed: (){}, icon: Icon(Icons.access_time)),
+        ],
+      ),
+      bottomNavigationBar: BottomAppBar(child: Text('hi')),
+    );
+  }
+}
+
+
+
+/*class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   // This widget is the root of your application.
@@ -27,8 +73,9 @@ class MyApp extends StatelessWidget {
       home: const MyHomePage(title: '오소정 Flutter App'),
     );
   }
-}
+}*/
 
+/*
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -113,3 +160,4 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+*/
