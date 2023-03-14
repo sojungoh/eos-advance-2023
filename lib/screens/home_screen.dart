@@ -15,16 +15,16 @@ class HomeScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           // Todo: crossAxisAlignment
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Spacer(flex: 2),
+            const Spacer(flex: 10),
             Image.asset('assets/images/eos_logo.png', height: 280),
             const Spacer(),
-            ClockWidget(),
-            Spacer(flex: 2),
+            const ClockWidget(),
+            const Spacer(flex: 8),
           ],
         )
       )
-    );
+);
   }
 }

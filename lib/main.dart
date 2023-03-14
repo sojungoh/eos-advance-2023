@@ -1,6 +1,5 @@
 import 'package:eos_chatting/screens/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:eos_chatting/screens/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +21,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+/*class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
   @override
@@ -46,9 +45,7 @@ class MyHomePage extends StatelessWidget {
       bottomNavigationBar: BottomAppBar(child: Text('hi')),
     );
   }
-}
-
-
+}*/
 
 /*class MyApp extends StatelessWidget {
   const MyApp({super.key});
