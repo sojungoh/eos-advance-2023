@@ -190,9 +190,85 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                   ]
                 ),
               )
+            ),
+            Positioned(
+              top: 430,
+              right: 0,
+              left: 0,
+              child: Center(
+                child: Container(
+                  // TODO : padding은 모두 15, height 90, width 90
+                  padding: EdgeInsets.all(15),
+                  height: 90,
+                  width: 90,
+                  decoration: BoxDecoration(
+                    // TODO : 하얀색, borderRadius는 50
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(50)
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [Colors.lightGreen, Colors.green],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight
+                      ),
+                      borderRadius: BorderRadius.circular(30),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.3),
+                          spreadRadius: 1,
+                          blurRadius: 1,
+                          offset: const Offset(0, 1)
+                        )
+                      ]
+                    ),
+                    child: const Icon(
+                      // TODO : 화살표 icon, 색은 하얀색
+                      Icons.arrow_forward,
+                      color: Colors.white,
+                    )
+                  )
+                )
+              )
+            ),
+            Positioned(
+              // TODO : top은 핸드폰 세로길이에서 - 125, right 0, left 0
+              top: MediaQuery.of(context).size.height - 125,
+              right: 0,
+              left: 0,
+              child: Column(
+                children: [
+                  // TODO : LOGIN 누르면 'or Signin with'
+                  Text(
+                    isSignupScreen ? 'or Signup with' : 'or Signin with',
+
+                  ),
+                  // SIGNUP 누르면 'or Signup with'
+                  // SizedBox height 10으로 사이 공간 주기
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TextButton.icon(
+                    onPressed: () {},
+                    style: TextButton.styleFrom(
+                      primary: Colors.white,
+                      minimumSize: const Size(155, 40),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)
+                      ),
+                      // TODO : 배경색은 palette의 googleColor
+                      backgroundColor: Palette.googleColor,
+                    ),
+                      // TODO : 더하기 아이콘 넣고 'Google' 쓰기
+                    icon: const Icon(Icons.add),
+                    label: const Text('Google'),
+                  )
+                ],
+              )
             )
           ],
-      )
+      ),
     );
   }
 }
