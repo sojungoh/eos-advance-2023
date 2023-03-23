@@ -11,6 +11,8 @@ class LoginSignUpScreen extends StatefulWidget {
 class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
   // TODO : isSignupScreen 변수 선언
   bool isSignupScreen = false;
+  double _height = 280;
+  double _top = 390;
 
   @override
   Widget build(BuildContext context) {
@@ -42,20 +44,20 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       RichText(
-                        text: const TextSpan(
+                        text: TextSpan(
                           // TODO : letter spacing 1.0, font size 25, color white
                           text: 'Welcome ',
-                          style: TextStyle(
+                          style: const TextStyle(
                             letterSpacing: 1.0, fontSize: 25, color: Colors.white
                           ),
                           children: [
                             TextSpan(
                               // TODO : letter spacing 1.0, font size 25, color white, bold
-                              text: 'to EOS chat',
-                              style: TextStyle(
+                              text: isSignupScreen ? 'to EOS chat!' : 'back',
+                              style: const TextStyle(
                                 letterSpacing: 1.0, fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold
                               ),
-                            )
+                            ),
                           ]
                         )
                       ),
@@ -63,10 +65,10 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                         // TODO : height 5.0으로 글 사이 간격 주기
                         height: 5.0,
                       ),
-                      const Text(
+                      Text(
                         // TODO : spacing 1.0, color white
-                        'Signup to continue',
-                        style: TextStyle(
+                        isSignupScreen ? 'Signup to continue' : 'Signin to continue',
+                        style: const TextStyle(
                           letterSpacing: 1.0, color: Colors.white
                         ),
                       )
@@ -75,12 +77,12 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                 ),
               ),
             ),
-            Positioned(
-              // TODO : top 150
+            AnimatedPositioned(
               top: 170,
-              child: Container(
+              duration: const Duration(milliseconds: 400),
+              child: AnimatedContainer(
                 // TODO : height 280.0, padding 모두 20, width 핸드폰 가로 길이 - 40
-                height: 280,
+                height: _height,
                 padding: const EdgeInsets.all(20),
                 width: MediaQuery.of(context).size.width - 40,
                 // TODO : margin 가로로 양쪽 20
@@ -98,6 +100,8 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                     )
                   ]
                 ),
+                duration: const Duration(seconds: 1),
+                curve: Curves.easeIn,
                 child: Column(
                   children: [
                     Row(
@@ -108,6 +112,8 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                           onTap: () {
                             setState(() {
                               isSignupScreen = false;
+                              _height = 280;
+                              _top = 390;
                             });
                           },
                           child: Column(
@@ -135,6 +141,8 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                           onTap: () {
                             setState(() {
                               isSignupScreen = true;
+                              _height = 310;
+                              _top = 430;
                             });
                           },
                           child: Column(
@@ -161,14 +169,62 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                       ],
                     ),
                     Container(
+                      margin: const EdgeInsets.only(top: 20),
                       child: Form(
                         child: Column(
                           children: [
-                            TextFormField(
+                            if(isSignupScreen) TextFormField(
                               decoration: const InputDecoration(
                                 // TODO : prefix icon 원하는 icon 입력, color는 palette의 iconColor
                                 prefixIcon: Icon(Icons.person),
                                 iconColor: Palette.iconColor,
+                                labelText: 'User name',
+                                enabledBorder: OutlineInputBorder(
+                                  // TODO : borderside 색은 palette의 textColor1
+                                  // TODO : border radius는 모두 35
+                                  borderSide: BorderSide(color: Palette.textColor1),
+                                  borderRadius: BorderRadius.all(Radius.circular(35)),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  // TODO : borderside 색은 palette의 textColor1
+                                  // TODO : border radius는 모두 35
+                                  borderSide: BorderSide(color: Palette.textColor1),
+                                  borderRadius: BorderRadius.all(Radius.circular(35)),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 8
+                            ),
+                            TextFormField(
+                              decoration: const InputDecoration(
+                                // TODO : prefix icon 원하는 icon 입력, color는 palette의 iconColor
+                                prefixIcon: Icon(Icons.email),
+                                iconColor: Palette.iconColor,
+                                labelText: 'email',
+                                enabledBorder: OutlineInputBorder(
+                                  // TODO : borderside 색은 palette의 textColor1
+                                  // TODO : border radius는 모두 35
+                                  borderSide: BorderSide(color: Palette.textColor1),
+                                  borderRadius: BorderRadius.all(Radius.circular(35)),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  // TODO : borderside 색은 palette의 textColor1
+                                  // TODO : border radius는 모두 35
+                                  borderSide: BorderSide(color: Palette.textColor1),
+                                  borderRadius: BorderRadius.all(Radius.circular(35)),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            TextFormField(
+                              decoration: const InputDecoration(
+                                // TODO : prefix icon 원하는 icon 입력, color는 palette의 iconColor
+                                prefixIcon: Icon(Icons.lock),
+                                iconColor: Palette.iconColor,
+                                labelText: 'password',
                                 enabledBorder: OutlineInputBorder(
                                   // TODO : borderside 색은 palette의 textColor1
                                   // TODO : border radius는 모두 35
@@ -191,10 +247,12 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                 ),
               )
             ),
-            Positioned(
-              top: 430,
+            AnimatedPositioned(
+              top: _top,
               right: 0,
               left: 0,
+              duration: const Duration(seconds: 1),
+              curve: Curves.easeIn,
               child: Center(
                 child: Container(
                   // TODO : padding은 모두 15, height 90, width 90
@@ -230,7 +288,7 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                     )
                   )
                 )
-              )
+              ),
             ),
             Positioned(
               // TODO : top은 핸드폰 세로길이에서 - 125, right 0, left 0
