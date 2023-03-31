@@ -29,6 +29,13 @@
             {
               "client_id": "625437306285-ahdrran5n956oas9aem7tfp37o33lv5v.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "625437306285-isistnn84v9r2g7p1qcsat5rus16rnv4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.eos.eosChatting"
+              }
             }
           ]
         }

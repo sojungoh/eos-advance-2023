@@ -33,6 +33,7 @@ class _ChatScreenState extends State<ChatScreen> {
               icon: Icon(Icons.exit_to_app)
           ),
         ],
+        backgroundColor: Palette.facebookColor,
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('/chats/QdjBGESVjwtT0I96tfLG/message').snapshots(),
