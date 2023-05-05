@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "130235349121",
+    "project_id": "eos-clock-bd538",
+    "storage_bucket": "eos-clock-bd538.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:130235349121:android:76e4bceda0915960e9f580",
+        "android_client_info": {
+          "package_name": "com.example.flutter_practice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "130235349121-8i61ovalomuve9hv2fbos50i1mph6ad7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrFUmM12rrp0Agrs1cXSGZn97bmofACnU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "130235349121-8i61ovalomuve9hv2fbos50i1mph6ad7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
