@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_practice/config/color_service.dart';
 import 'package:flutter_practice/view/home_screen.dart';
 import 'package:flutter_practice/view/login_screen.dart';
-import 'package:flutter_practice/view/signup_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,18 +15,22 @@ void main() async {
 
   runApp(
     MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'eos clock app',
-        theme: ThemeData(
-          primarySwatch:
-              ColorService.createMaterialColor(const Color(0xFF1CAF49)),
-          fontFamily: 'Teko',
-        ),
-        initialRoute: '/',
-        routes: {
-          '/': (context) => const LoginScreen(),
-          '/home': (context) => const HomeScreen(),
-          '/signup': (context) => const SignUpScreen(),
-        }),
+      debugShowCheckedModeBanner: false,
+      title: 'eos clock app',
+      theme: ThemeData(
+        primarySwatch:
+            ColorService.createMaterialColor(const Color(0xFF1CAF49)),
+        fontFamily: 'Teko',
+      ),
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return const HomeScreen();
+          }
+          return const LoginScreen();
+        },
+      ),
+    ),
   );
 }

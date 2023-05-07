@@ -52,14 +52,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
       FocusScope.of(context).requestFocus(FocusNode());
 
       try {
-        UserCredential userCredential = await _auth
+        await _auth
             .createUserWithEmailAndPassword(
           email: _emailController.text,
           password: _passwordController.text,
         )
             .then((value) {
-          if (value.user!.email == null) {
-          } else {
+          if (value.user!.email != null) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('회원가입 완료'),

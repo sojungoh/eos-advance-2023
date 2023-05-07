@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../widget/clock_widget.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -6,6 +7,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var auth = FirebaseAuth.instance;
+    print(auth.currentUser?.email);
     return Scaffold(
       backgroundColor: const Color(0xFFffffff),
       appBar: AppBar(
@@ -13,6 +16,14 @@ class HomeScreen extends StatelessWidget {
           'EOS 시계 앱',
           style: TextStyle(fontSize: 25),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              auth.signOut();
+            },
+            icon: const Icon(Icons.exit_to_app_rounded, color: Colors.white),
+          ),
+        ],
         leading: const Icon(Icons.access_time_filled),
       ),
       body: SafeArea(
