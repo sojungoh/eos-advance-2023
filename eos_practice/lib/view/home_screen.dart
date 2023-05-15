@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../widget/clock_widget.dart';
+import 'package:flutter_practice/view/login_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -20,6 +21,10 @@ class HomeScreen extends StatelessWidget {
           IconButton(
             onPressed: () {
               auth.signOut();
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginScreen()),
+                  (route) => false);
             },
             icon: const Icon(Icons.exit_to_app_rounded, color: Colors.white),
           ),
