@@ -1,8 +1,7 @@
-import 'package:eos_chatting/screens/chat_screen.dart';
-import 'package:eos_chatting/screens/main_screen.dart';
+import 'package:eos_chatting/chatting/chat/chat_bubble.dart';
 import 'package:flutter/material.dart';
+import 'package:eos_chatting/screens/main_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -20,20 +19,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Chatting App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: StreamBuilder(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return const ChatScreen();
-          }
-          return const LoginSignUpScreen();
-        },
-      ),
+        title: 'Chatting App',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+         home: const ChatScreen()
     );
   }
 }
