@@ -350,32 +350,41 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
             left: 0,
             duration: const Duration(seconds: 1),
             curve: Curves.easeIn,
-            child: Center(
-                child: Container(
-                    padding: const EdgeInsets.all(15),
-                    height: 90,
-                    width: 90,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(50)),
-                    child: Container(
-                        decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                                colors: [Colors.lightGreen, Colors.green],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight),
-                            borderRadius: BorderRadius.circular(30),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.black.withOpacity(0.3),
-                                  spreadRadius: 1,
-                                  blurRadius: 1,
-                                  offset: const Offset(0, 1))
-                            ]),
-                        child: const Icon(
-                          Icons.arrow_forward,
+            child: GestureDetector(
+              onTap: () {
+                if (isSignupScreen) {
+                  _signup();
+                } else {
+                  _login();
+                }
+              },
+              child: Center(
+                  child: Container(
+                      padding: const EdgeInsets.all(15),
+                      height: 90,
+                      width: 90,
+                      decoration: BoxDecoration(
                           color: Colors.white,
-                        )))),
+                          borderRadius: BorderRadius.circular(50)),
+                      child: Container(
+                          decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                  colors: [Colors.lightGreen, Colors.green],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight),
+                              borderRadius: BorderRadius.circular(30),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.black.withOpacity(0.3),
+                                    spreadRadius: 1,
+                                    blurRadius: 1,
+                                    offset: const Offset(0, 1))
+                              ]),
+                          child: const Icon(
+                            Icons.arrow_forward,
+                            color: Colors.white,
+                          )))),
+            ),
           ),
           Positioned(
             top: MediaQuery.of(context).size.height - 125,
