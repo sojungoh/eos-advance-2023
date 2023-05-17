@@ -1,3 +1,4 @@
+import 'package:eos_chatting/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
 import '../config/palette.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -16,21 +17,59 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
 
   final _auth = FirebaseAuth.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  Widget _userNameWidget() {
+    return TextFormField(
+      controller: _userNameController,
+      keyboardType: TextInputType.name,
+      validator: (String? value) {
+        if (value!.isEmpty) {
+          return '사용자명을 입력해주세요.';
+        }
+        return null;
+      },
+      decoration: const InputDecoration(
+        prefixIcon: Icon(Icons.person),
+        iconColor: Palette.iconColor,
+        labelText: 'User name',
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Palette.textColor1),
+          borderRadius: BorderRadius.all(Radius.circular(35)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Palette.textColor1),
+          borderRadius: BorderRadius.all(Radius.circular(35)),
+        ),
+      ),
+    );
+  }
 
   Widget _userIdWidget() {
     return TextFormField(
       controller: _emailController,
       keyboardType: TextInputType.emailAddress,
-      decoration: const InputDecoration(
-          border: OutlineInputBorder(), labelText: 'email'),
       validator: (String? value) {
         if (value!.isEmpty) {
           return '이메일을 입력해주세요.';
         }
         return null;
       },
+      decoration: const InputDecoration(
+        prefixIcon: Icon(Icons.email),
+        iconColor: Palette.iconColor,
+        labelText: 'email',
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Palette.textColor1),
+          borderRadius: BorderRadius.all(Radius.circular(35)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Palette.textColor1),
+          borderRadius: BorderRadius.all(Radius.circular(35)),
+        ),
+      ),
     );
   }
 
@@ -39,32 +78,44 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
       controller: _passwordController,
       obscureText: true,
       keyboardType: TextInputType.text,
-      decoration: const InputDecoration(
-        border: OutlineInputBorder(),
-        labelText: 'password',
-      ),
       validator: (String? value) {
         if (value!.isEmpty) {
           return '비밀번호를 입력해주세요.';
         }
         return null;
       },
+      decoration: const InputDecoration(
+        prefixIcon: Icon(Icons.lock),
+        iconColor: Palette.iconColor,
+        labelText: 'password',
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Palette.textColor1),
+          borderRadius: BorderRadius.all(Radius.circular(35)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Palette.textColor1),
+          borderRadius: BorderRadius.all(Radius.circular(35)),
+        ),
+      ),
     );
   }
 
   _login() async {
     if (_formKey.currentState!.validate()) {
       FocusScope.of(context).requestFocus(FocusNode());
+      //https://docs.flutter.dev/ui/advanced/focus
 
       try {
         await _auth.signInWithEmailAndPassword(
             email: _emailController.text, password: _passwordController.text);
 
-        // Navigator.pushAndRemoveUntil(
-        //   context,
-        //   MaterialPageRoute(builder: (context) => const HomeScreen()),
-        //   (route) => false,
-        // );
+        if (context.mounted) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const ChatScreen()),
+            (route) => false,
+          );
+        }
       } on FirebaseAuthException catch (e) {
         String message = '';
 
@@ -104,7 +155,12 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                 backgroundColor: Colors.blue,
               ),
             );
-            Navigator.pop(context);
+
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const ChatScreen()),
+              (route) => false,
+            );
           }
           return value;
         });
@@ -183,26 +239,27 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
             ),
           ),
           AnimatedPositioned(
-              top: 170,
-              duration: const Duration(milliseconds: 400),
-              child: AnimatedContainer(
-                height: _height,
-                padding: const EdgeInsets.all(20),
-                width: MediaQuery.of(context).size.width - 40,
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(15),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.3),
-                        blurRadius: 15,
-                        spreadRadius: 5,
-                      )
-                    ]),
-                duration: const Duration(seconds: 1),
-                curve: Curves.easeIn,
-                child: Column(children: [
+            top: 170,
+            duration: const Duration(milliseconds: 400),
+            child: AnimatedContainer(
+              height: _height,
+              padding: const EdgeInsets.all(20),
+              width: MediaQuery.of(context).size.width - 40,
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.3),
+                      blurRadius: 15,
+                      spreadRadius: 5,
+                    )
+                  ]),
+              duration: const Duration(seconds: 1),
+              curve: Curves.easeIn,
+              child: Column(
+                children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -267,75 +324,26 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
                     ],
                   ),
                   Container(
-                      margin: const EdgeInsets.only(top: 20),
-                      child: Form(
-                        child: Column(children: [
-                          if (isSignupScreen)
-                            TextFormField(
-                              decoration: const InputDecoration(
-                                prefixIcon: Icon(Icons.person),
-                                iconColor: Palette.iconColor,
-                                labelText: 'User name',
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Palette.textColor1),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(35)),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Palette.textColor1),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(35)),
-                                ),
-                              ),
-                            ),
+                    margin: const EdgeInsets.only(top: 20),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          if (isSignupScreen) _userNameWidget(),
                           const SizedBox(height: 8),
-                          TextFormField(
-                            decoration: const InputDecoration(
-                              prefixIcon: Icon(Icons.email),
-                              iconColor: Palette.iconColor,
-                              labelText: 'email',
-                              enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Palette.textColor1),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(35)),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Palette.textColor1),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(35)),
-                              ),
-                            ),
-                          ),
+                          _userIdWidget(),
                           const SizedBox(
                             height: 8,
                           ),
-                          TextFormField(
-                            decoration: const InputDecoration(
-                              prefixIcon: Icon(Icons.lock),
-                              iconColor: Palette.iconColor,
-                              labelText: 'password',
-                              enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Palette.textColor1),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(35)),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Palette.textColor1),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(35)),
-                              ),
-                            ),
-                          )
-                        ]),
-                      ))
-                ]),
-              )),
+                          _passwordWidget(),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
           AnimatedPositioned(
             top: _top,
             right: 0,

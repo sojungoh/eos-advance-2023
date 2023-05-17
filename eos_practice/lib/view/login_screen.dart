@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_practice/view/signup_screen.dart';
+import 'package:flutter_practice/view/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -56,11 +57,13 @@ class _LoginScreenState extends State<LoginScreen> {
         await _auth.signInWithEmailAndPassword(
             email: _emailController.text, password: _passwordController.text);
 
-        // Navigator.pushAndRemoveUntil(
-        //   context,
-        //   MaterialPageRoute(builder: (context) => const HomeScreen()),
-        //   (route) => false,
-        // );
+        if (context.mounted) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const HomeScreen()),
+            (route) => false,
+          );
+        }
       } on FirebaseAuthException catch (e) {
         String message = '';
 
@@ -118,10 +121,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: const Text('회원 가입'),
                   ),
                   onTap: () {
-                    Navigator.push(
+                    Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const SignUpScreen()),
+                      (route) => false,
                     );
                   },
                 )

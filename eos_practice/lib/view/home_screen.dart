@@ -9,7 +9,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var auth = FirebaseAuth.instance;
-    print(auth.currentUser?.email);
+
     return Scaffold(
       backgroundColor: const Color(0xFFffffff),
       appBar: AppBar(

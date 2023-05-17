@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_practice/view/home_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -65,7 +66,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 backgroundColor: Colors.blue,
               ),
             );
-            Navigator.pop(context);
+
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const HomeScreen()),
+              (route) => false,
+            );
           }
           return value;
         });
