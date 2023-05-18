@@ -1,3 +1,5 @@
+import 'package:eos_chatting/config/color_service.dart';
+import 'package:eos_chatting/config/palette.dart';
 import 'package:eos_chatting/screens/chat_screen.dart';
 import 'package:eos_chatting/screens/main_screen.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Chatting App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: ColorService.createMaterialColor(Palette.eosColor),
       ),
       home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),

@@ -18,17 +18,27 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // TODO : 사진보고 AppBar 만들기
+      backgroundColor: Palette.backgroundColor,
       appBar: AppBar(
-        leading:
-            const IconButton(onPressed: null, icon: Icon(Icons.arrow_back)),
-        title: const Center(
-          child: Text('Chat screen'),
+        backgroundColor: Colors.green,
+        title: const Text('Chat screen'),
+        centerTitle: true,
+        leading: IconButton(
+          onPressed: () {},
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
         ),
-        actions: const [
-          IconButton(onPressed: null, icon: Icon(Icons.exit_to_app)),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.exit_to_app,
+              color: Colors.white,
+            ),
+          ),
         ],
-        backgroundColor: Palette.facebookColor,
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
@@ -43,15 +53,17 @@ class _ChatScreenState extends State<ChatScreen> {
           }
           final docs = snapshot.data!.docs;
           return ListView.builder(
-              itemCount: docs.length,
-              itemBuilder: (context, index) {
-                return Container(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      docs[index]['text'],
-                      style: const TextStyle(fontSize: 20.0),
-                    ));
-              });
+            itemCount: docs.length,
+            itemBuilder: (context, index) {
+              return Container(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  docs[index]['text'],
+                  style: const TextStyle(fontSize: 20.0),
+                ),
+              );
+            },
+          );
         },
       ),
     );
