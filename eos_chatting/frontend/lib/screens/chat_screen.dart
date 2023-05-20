@@ -1,5 +1,6 @@
 import 'package:eos_chatting/config/palette.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -17,24 +18,27 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var authentication = FirebaseAuth.instance;
     return Scaffold(
       backgroundColor: Palette.backgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.green,
         title: const Text('Chat screen'),
         centerTitle: true,
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
-        ),
+        // leading: IconButton(
+        //   onPressed: () {},
+        //   icon: const Icon(
+        //     Icons.arrow_back,
+        //     color: Colors.white,
+        //   ),
+        // ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              authentication.signOut();
+            },
             icon: const Icon(
-              Icons.exit_to_app,
+              Icons.exit_to_app_rounded,
               color: Colors.white,
             ),
           ),

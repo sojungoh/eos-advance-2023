@@ -25,7 +25,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Chatting App',
       theme: ThemeData(
-        primarySwatch: ColorService.createMaterialColor(Palette.eosColor),
+        primarySwatch:
+            ColorService.createMaterialColor(Palette.backgroundColor),
       ),
       home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),

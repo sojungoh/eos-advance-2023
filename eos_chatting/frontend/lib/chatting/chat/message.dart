@@ -12,7 +12,7 @@ class Messages extends StatelessWidget {
 
     return StreamBuilder(
       stream: FirebaseFirestore.instance
-          .collection('chat')
+          .collection('chats')
           .orderBy('time', descending: true)
           .snapshots(),
       builder: (context,
@@ -28,7 +28,12 @@ class Messages extends StatelessWidget {
           reverse: true,
           itemCount: docs.length,
           itemBuilder: (context, index) {
-            return const ChatBubble();
+            if (docs[index]['userId'] == user!.uid) {
+              return ChatBubble(
+                  docs[index]['text'], true, docs[index]['userName']);
+            }
+            return ChatBubble(
+                docs[index]['text'], false, docs[index]['userName']);
           },
         );
       },
