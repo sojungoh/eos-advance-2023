@@ -1,7 +1,9 @@
-import 'package:eos_chatting/config/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import '../config/palette.dart';
+import './main_screen.dart';
+import '../chatting/chat/message.dart';
+import '../chatting/chat/new_message.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -25,17 +27,16 @@ class _ChatScreenState extends State<ChatScreen> {
         backgroundColor: Colors.green,
         title: const Text('Chat screen'),
         centerTitle: true,
-        // leading: IconButton(
-        //   onPressed: () {},
-        //   icon: const Icon(
-        //     Icons.arrow_back,
-        //     color: Colors.white,
-        //   ),
-        // ),
         actions: [
           IconButton(
             onPressed: () {
               authentication.signOut();
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const LoginSignUpScreen()),
+                (route) => false,
+              );
             },
             icon: const Icon(
               Icons.exit_to_app_rounded,
@@ -44,31 +45,19 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
         ],
       ),
-      body: StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection('/chats/QdjBGESVjwtT0I96tfLG/message')
-            .snapshots(),
-        builder: (BuildContext context,
-            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          final docs = snapshot.data!.docs;
-          return ListView.builder(
-            itemCount: docs.length,
-            itemBuilder: (context, index) {
-              return Container(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  docs[index]['text'],
-                  style: const TextStyle(fontSize: 20.0),
-                ),
-              );
-            },
-          );
-        },
+      body: Container(
+        alignment: Alignment.center,
+        child: Column(
+          children: const [
+            Expanded(
+              child: Messages(),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            NewMessage(),
+          ],
+        ),
       ),
     );
   }

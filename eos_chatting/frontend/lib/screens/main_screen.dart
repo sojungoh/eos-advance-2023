@@ -1,7 +1,8 @@
-import 'package:eos_chatting/screens/chat_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import '../config/palette.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../config/palette.dart';
+import '../screens/chat_screen.dart';
 
 class LoginSignUpScreen extends StatefulWidget {
   const LoginSignUpScreen({Key? key}) : super(key: key);
@@ -142,28 +143,28 @@ class _LoginSignUpScreenState extends State<LoginSignUpScreen> {
       FocusScope.of(context).requestFocus(FocusNode());
 
       try {
-        await _auth
-            .createUserWithEmailAndPassword(
+        final newUser = await _auth.createUserWithEmailAndPassword(
           email: _emailController.text,
           password: _passwordController.text,
-        )
-            .then((value) {
-          if (value.user!.email != null) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('회원가입 완료'),
-                backgroundColor: Colors.blue,
-              ),
-            );
+        );
 
+        if (newUser.user != null) {
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(newUser.user!.uid)
+              .set({
+            'userName': _userNameController.text,
+            'email': _emailController.text,
+          });
+
+          if (context.mounted) {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (context) => const ChatScreen()),
               (route) => false,
             );
           }
-          return value;
-        });
+        }
       } on FirebaseAuthException catch (e) {
         String message = '';
 

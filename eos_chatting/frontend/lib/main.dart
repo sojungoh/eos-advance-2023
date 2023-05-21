@@ -1,11 +1,11 @@
-import 'package:eos_chatting/config/color_service.dart';
-import 'package:eos_chatting/config/palette.dart';
-import 'package:eos_chatting/screens/chat_screen.dart';
-import 'package:eos_chatting/screens/main_screen.dart';
 import 'package:flutter/material.dart';
+import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'firebase_options.dart';
+import './config/palette.dart';
+import './config/color_service.dart';
+import './screens/main_screen.dart';
+import './screens/chat_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
